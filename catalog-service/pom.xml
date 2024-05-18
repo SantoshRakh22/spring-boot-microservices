@@ -17,6 +17,7 @@
 		<java.version>17</java.version>
 		<springdoc-openapi.version>2.5.0</springdoc-openapi.version>
 		<spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
+		<dockerImageName>santoshrakh/bookstore-${project.artifactId}</dockerImageName>
 	</properties>
 	<dependencies>
 		<dependency>

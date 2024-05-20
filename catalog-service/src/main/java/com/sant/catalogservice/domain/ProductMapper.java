@@ -1,6 +1,6 @@
 package com.sant.catalogservice.domain;
 
- class ProductMapper {
+class ProductMapper {
     static Product toProduct(ProductEntity productEntity) {
         return new Product(
                 productEntity.getCode(),
@@ -9,5 +9,4 @@ package com.sant.catalogservice.domain;
                 productEntity.getImageUrl(),
                 productEntity.getPrice());
     }
-
 }

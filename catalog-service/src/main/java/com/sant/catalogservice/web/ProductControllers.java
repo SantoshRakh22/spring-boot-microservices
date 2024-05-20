@@ -10,29 +10,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/api/products")
- class ProductControllers {
+class ProductControllers {
 
     private static final Logger log = LoggerFactory.getLogger(ProductControllers.class);
 
     @Autowired
-private  ProductService productService;
+    private ProductService productService;
 
     @GetMapping
-    PageResult<Product> getProducts(@RequestParam(name = "page",defaultValue = "1")int pageNo){
-        return  productService.getProducts(pageNo);
+    PageResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1") int pageNo) {
+        return productService.getProducts(pageNo);
     }
+
     @GetMapping("/{code}")
-    ResponseEntity<Product>getProductByCode(@PathVariable String code){
+    ResponseEntity<Product> getProductByCode(@PathVariable String code) {
         log.info("Fetching product for code: {}", code);
-return productService.getProductByCode(code)
-        .map(ResponseEntity::ok)
-        .orElseThrow(()-> ProductNotFoundException.forCode(code));
-
-}
-
-
-
+        return productService
+                .getProductByCode(code)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> ProductNotFoundException.forCode(code));
+    }
 }

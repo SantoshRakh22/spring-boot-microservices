@@ -1,12 +1,11 @@
 package com.sant.catalogservice;
 
-import com.sant.catalogservice.domain.Product;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
-
+import com.sant.catalogservice.domain.Product;
 import io.restassured.http.ContentType;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
@@ -48,6 +47,7 @@ public class ProductControllerTest extends AbstractIT {
         assertThat(product.description()).isEqualTo("Winning will make you famous. Losing means certain death...");
         assertThat(product.price()).isEqualTo(new BigDecimal("34.0"));
     }
+
     @Test
     void shouldReturnNotFoundWhenProductCodeNotExists() {
         String code = "invalid_product_code";
@@ -60,5 +60,4 @@ public class ProductControllerTest extends AbstractIT {
                 .body("title", is("Product Not Found"))
                 .body("detail", is("Product with code " + code + " not found"));
     }
-
 }

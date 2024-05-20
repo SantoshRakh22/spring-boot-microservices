@@ -112,7 +112,9 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-						<name>${dockerImageName}</name>
+						<name>docker.io/santoshrakh/bookstore-catalog-service:latest</name>
+						<builder>paketobuildpacks/builder:base</builder>
+						<runImage>paketobuildpacks/run:base</runImage>
 					</image>
 				</configuration>
 				<executions>
@@ -151,7 +153,7 @@
 				<version>${spotless-maven-plugin.version}</version>
 				<configuration>
 					<java>
-						<importOrder />
+						<importOrder/>
 						<removeUnusedImports />
 						<palantirJavaFormat>
 							<version>2.43.0</version>

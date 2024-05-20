@@ -1,6 +1,5 @@
 package com.sant.catalogservice.domain;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +14,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "products")
- public  class ProductEntity {
+public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_id_generator")
     @SequenceGenerator(name = "product_id_generator", sequenceName = "product_id_seq")
@@ -96,4 +95,3 @@ import java.math.BigDecimal;
         this.price = price;
     }
 }
-

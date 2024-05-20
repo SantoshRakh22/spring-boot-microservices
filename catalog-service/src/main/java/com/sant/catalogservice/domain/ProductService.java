@@ -1,6 +1,6 @@
 package com.sant.catalogservice.domain;
 
-import com.sant.catalogservice.ApplicationProperties;
+import com.sant.catalogservice.web.ApplicationProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -43,4 +43,10 @@ import java.util.List;
 
     }
 
+
+    public Optional<Product>getProductByCode(String code){
+        return productRepository.findByCode(
+                code
+        ).map(ProductMapper::toProduct);
+    }
 }

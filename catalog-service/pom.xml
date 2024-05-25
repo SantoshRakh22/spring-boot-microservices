@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version>
+		<version>3.2.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sant</groupId>
@@ -111,10 +111,14 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<image>
+					<!--<image>
 						<name>docker.io/santoshrakh/bookstore-catalog-service:latest</name>
 						<builder>paketobuildpacks/builder:base</builder>
 						<runImage>paketobuildpacks/run:base</runImage>
+					</image>-->
+					<image>
+					<name>${dockerImageName}</name>
+					<builder>dashaun/builder:tiny</builder>
 					</image>
 				</configuration>
 				<executions>

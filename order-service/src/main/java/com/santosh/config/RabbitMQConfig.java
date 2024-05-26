@@ -3,47 +3,44 @@ package com.santosh.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.santosh.ApplicationProperties;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-
 
 @Configuration
 public class RabbitMQConfig {
 
-    private  final ApplicationProperties properties;
-    RabbitMQConfig(ApplicationProperties properties){
-        this.properties=properties;
+    private final ApplicationProperties properties;
 
+    RabbitMQConfig(ApplicationProperties properties) {
+        this.properties = properties;
     }
+
     @Bean
-    DirectExchange exchange(){
+    DirectExchange exchange() {
         return new DirectExchange(properties.orderEventsExchange());
     }
+
     @Bean
-    Queue newOrdQueue(){
+    Queue newOrdQueue() {
         return QueueBuilder.durable(properties.newOrdersQueue()).build();
     }
-    @Bean
-    Binding newOrderQueueBinding(){
-        return BindingBuilder.bind(newOrdQueue())
-                .to(exchange())
-                .with(properties.newOrdersQueue());
-    }
-    @Bean
-    Queue deliveredOrdersQueue(){
-        return  QueueBuilder.durable(properties.deliveredOrdersQueue()).build();
-    }
-    @Bean
-    Binding deliveredOrdersQueueBindng(){
-        return BindingBuilder .bind(deliveredOrdersQueue())
-                .to(exchange())
-                .with(properties.errorOrdersQueue());
 
+    @Bean
+    Binding newOrderQueueBinding() {
+        return BindingBuilder.bind(newOrdQueue()).to(exchange()).with(properties.newOrdersQueue());
+    }
 
+    @Bean
+    Queue deliveredOrdersQueue() {
+        return QueueBuilder.durable(properties.deliveredOrdersQueue()).build();
+    }
+
+    @Bean
+    Binding deliveredOrdersQueueBindng() {
+        return BindingBuilder.bind(deliveredOrdersQueue()).to(exchange()).with(properties.errorOrdersQueue());
     }
 
     @Bean
@@ -68,7 +65,7 @@ public class RabbitMQConfig {
 
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, ObjectMapper objectMapper) {
-        final var rabbitTemplate = new RabbitTemplate(connectionFactory );
+        final var rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(jacksonConverter(objectMapper));
         return rabbitTemplate;
     }
@@ -77,6 +74,4 @@ public class RabbitMQConfig {
     public Jackson2JsonMessageConverter jacksonConverter(ObjectMapper mapper) {
         return new Jackson2JsonMessageConverter(mapper);
     }
-
-
 }

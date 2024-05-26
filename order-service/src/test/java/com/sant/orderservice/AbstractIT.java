@@ -1,4 +1,4 @@
-package com.sant.order_service;
+package com.sant.orderservice;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 

@@ -1,4 +1,4 @@
-package com.sant.order_service;
+package com.sant.orderservice;
 
 import com.santosh.OrderServiceApplication;
 import org.springframework.boot.SpringApplication;
